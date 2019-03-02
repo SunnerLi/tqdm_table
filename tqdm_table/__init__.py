@@ -5,14 +5,14 @@ SHORT  = 15
 MIDDLE = 30
 LARGE  = 50
 
-def __clear__(times: int = 11):
+def __clear__(times: int = 11, length: int = 123):
     """
         Clear the previous table toward the terminal
     """
     print()
     for i in range(times + 1):
         if i != times:
-            print("\033[F" + '     ' * 24 + '   ', end='')
+            print("\033[F" + ' ' * length, end='')
         else:
             print("\033[F", end = '')
     print("\r")
@@ -72,7 +72,7 @@ class tqdm_table(tqdm):
 
         # Clear the previous table information toward stdout
         if self.prev_lines > 0:
-            __clear__(self.prev_lines)
+            __clear__(self.prev_lines, self.max_length)
 
         # Determine the width of cell
         if max([max(len(str(val)), len(key)) for key, val in mapping.items()]) <= 15:
